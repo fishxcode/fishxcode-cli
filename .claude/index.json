@@ -148,15 +148,29 @@
     "release_trigger": ["push tags v*", "workflow_dispatch"],
     "publish_registry": "https://registry.npmjs.org"
   },
+  "docs": {
+    "site": "https://cli.fishxcode.com",
+    "engine": "vitepress@^1.6.4",
+    "source_dir": "docs/",
+    "output_dir": "docs/.vitepress/dist",
+    "deploy": "vercel",
+    "locales": ["zh-CN (root)", "en", "fr", "es", "pt"],
+    "rewrites": { "zh-CN/:path": ":path" },
+    "theme": "custom (warm gold + rose-pink, dark mode)",
+    "plugins": ["@vite-pwa/vitepress", "vitepress-plugin-group-icons", "medium-zoom"],
+    "scripts": ["docs:dev", "docs:build", "docs:preview"],
+    "config": "docs/.vitepress/config.mts",
+    "theme_dir": "docs/.vitepress/theme/"
+  },
   "gaps_summary": [
     "命令层（src/commands/）无单元测试",
     "适配器层 configure/reset 无集成测试",
     "balance 命令未接入服务端 API",
-    "cursor 工具适配器未实现",
-    "无 ESLint/Biome 等 Lint 配置"
+    "cursor 工具适配器未实现"
   ],
   "next_scan_priority": [
     "test/（补充适配器集成测试后重新扫描）",
-    "src/commands/balance.ts（功能实现后更新文档）"
+    "src/commands/balance.ts（balance 功能实现后更新文档）",
+    "docs/（VitePress 文档内容扩充后重新扫描）"
   ]
 }

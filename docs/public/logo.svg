@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <defs>
+    <linearGradient id="fish" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4dd0e1"/>
+      <stop offset="50%" stop-color="#00bcd4"/>
+      <stop offset="100%" stop-color="#00838f"/>
+    </linearGradient>
+    <linearGradient id="ring" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#78909c"/>
+      <stop offset="50%" stop-color="#b0bec5"/>
+      <stop offset="100%" stop-color="#607d8b"/>
+    </linearGradient>
+    <radialGradient id="bg" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#1a2332"/>
+      <stop offset="100%" stop-color="#0d1524"/>
+    </radialGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="1.5" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- 背景 + 金属环 -->
+  <circle cx="100" cy="100" r="96" fill="url(#bg)"/>
+  <circle cx="100" cy="100" r="94" fill="none" stroke="url(#ring)" stroke-width="4"/>
+  <circle cx="100" cy="100" r="90" fill="none" stroke="#37474f" stroke-width="1" opacity="0.6"/>
+
+  <!-- 鱼身主体 -->
+  <path d="M36,100 C36,70 56,50 88,48 C110,46 128,56 140,72 L160,52 L154,90 L160,128 L140,108 C128,124 110,134 88,132 C56,130 36,112 36,100Z" fill="url(#fish)" filter="url(#glow)"/>
+
+  <!-- 背鳍 -->
+  <path d="M72,50 C78,34 92,36 100,48 L86,50Z" fill="url(#fish)" opacity="0.8"/>
+
+  <!-- 腹鳍 -->
+  <path d="M78,118 C74,134 88,130 92,120 L84,118Z" fill="url(#fish)" opacity="0.8"/>
+
+  <!-- 眼睛 -->
+  <circle cx="54" cy="92" r="9" fill="#0d1524"/>
+  <circle cx="56" cy="90" r="4" fill="#4dd0e1"/>
+  <circle cx="57.5" cy="88.5" r="1.5" fill="#fff" opacity="0.85"/>
+
+  <!-- 电路板线路 -->
+  <g stroke="#0a1a2a" stroke-width="1.8" fill="none" opacity="0.45" stroke-linecap="round">
+    <path d="M68,80 L86,80 L90,76 L112,76"/>
+    <path d="M86,80 L86,96 L94,96"/>
+    <path d="M72,104 L94,104 L98,108 L122,108"/>
+    <path d="M94,96 L94,112"/>
+    <path d="M112,76 L112,86"/>
+    <path d="M122,108 L122,96"/>
+  </g>
+
+  <!-- 电路节点 -->
+  <g fill="#0a1a2a" opacity="0.4">
+    <circle cx="68" cy="80" r="2.5"/>
+    <circle cx="112" cy="76" r="2.5"/>
+    <circle cx="72" cy="104" r="2.5"/>
+    <circle cx="94" cy="112" r="2.5"/>
+    <circle cx="122" cy="108" r="2.5"/>
+    <circle cx="112" cy="86" r="2.5"/>
+    <circle cx="122" cy="96" r="2.5"/>
+  </g>
+
+  <!-- X 标记 -->
+  <text x="102" y="104" font-size="38" fill="#fff" text-anchor="middle" font-weight="bold" font-family="Arial,Helvetica,sans-serif" opacity="0.9" filter="url(#glow)">X</text>
+</svg>

@@ -42,7 +42,10 @@
     "lint": "biome check .",
     "format": "biome format --write .",
     "check": "bun run typecheck && bun test && bun run build",
-    "prepublishOnly": "bun run check"
+    "prepublishOnly": "bun run check",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs"
   },
   "keywords": [
     "fishxcode",
@@ -64,7 +67,11 @@
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
     "@types/node": "^22.15.29",
+    "@vite-pwa/vitepress": "^1.1.0",
     "bun-types": "^1.3.10",
-    "typescript": "^5.8.3"
+    "medium-zoom": "^1.1.0",
+    "typescript": "^5.8.3",
+    "vitepress": "^1.6.4",
+    "vitepress-plugin-group-icons": "^1.7.1"
   }
 }
