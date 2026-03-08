@@ -1,11 +1,11 @@
 {
   "name": "fishxcode-cli",
   "version": "0.1.0",
-  "description": "FishXCode CLI - Configure AI coding tools with FishXCode API",
+  "description": "AI coding tool manager — one-click integration with FishXCode API for claude-code, aider, codex, opencode and more",
   "type": "module",
   "author": "fishxcode <admin@fishxcode.com>",
   "license": "MIT",
-  "homepage": "https://fishxcode.com",
+  "homepage": "https://cli.fishxcode.com",
   "repository": {
     "type": "git",
     "url": "https://github.com/fishxcode/fishxcode-cli"

@@ -2,30 +2,61 @@
 
 [简体中文](./README.zh-CN.md) · [English](./README.en.md) · [Français](./README.fr.md) · [Español](./README.es.md) · [Português](./README.pt.md)
 
-Official FishXCode CLI built with Bun + TypeScript.
+[![npm version](https://img.shields.io/npm/v/fishxcode-cli)](https://www.npmjs.com/package/fishxcode-cli)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-## Docs
+Official FishXCode CLI — one-click integration with FishXCode API for claude-code, aider, codex, opencode and more.
 
-- Quick Start: [docs/en/quick-start.md](./docs/en/quick-start.md)
-- Commands: [docs/en/commands.md](./docs/en/commands.md)
-- Tool Support: [docs/en/tools.md](./docs/en/tools.md)
-- Release & CI: [docs/en/release.md](./docs/en/release.md)
+**[📖 Docs](https://cli.fishxcode.com)** · **[🚀 Register](https://fishxcode.com/register?aff=9CTW)** · **[🔑 Get API Key](https://fishxcode.com/console/token)**
 
 ## Install
 
 ```bash
 npm i -g fishxcode-cli
+# or run directly without installing
+npx fishxcode-cli@latest fishx setup
 ```
 
-## Usage
+## Quick Start
 
 ```bash
-fishx --help
-fishx login
-fishx setup
-fishx doctor
+fishx login     # save your FishXCode API Key
+fishx setup     # configure all AI tools automatically
+fishx doctor    # verify configuration status
 ```
 
-## Console
+## Supported Tools
 
-- <https://fishxcode.com/console/token>
+| Tool | Config File | Auto-configured |
+| --- | --- | --- |
+| Claude Code | `~/.claude/settings.json` | ✅ |
+| Codex CLI | `~/.codex/config.toml` | ✅ |
+| Aider | `~/.aider.conf.yml` | ✅ |
+| Continue.dev | `~/.continue/config.yaml` | ✅ |
+| OpenCode | `~/.config/opencode/opencode.json` | ✅ |
+| OpenClaw | `~/.openclaw/openclaw.json` | ✅ |
+
+## Commands
+
+| Command | Description |
+| --- | --- |
+| `fishx login` | Save FishXCode API Key |
+| `fishx logout` | Remove saved credentials |
+| `fishx whoami` | Show current API Key (masked) |
+| `fishx setup` | Configure all AI tools |
+| `fishx doctor` | Check environment and tool status |
+| `fishx tools` | List all supported tools |
+| `fishx reset` | Reset all tool configurations |
+| `fishx balance` | Check account balance *(coming soon)* |
+
+## Environment Variable
+
+```bash
+export FISHXCODE_API_KEY=sk-xxx   # alternative to fishx login
+```
+
+## Links
+
+- **Docs**: <https://cli.fishxcode.com>
+- **API Console**: <https://fishxcode.com/console/token>
+- **GitHub**: <https://github.com/fishxcode/fishxcode-cli>
