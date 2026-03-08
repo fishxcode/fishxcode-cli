@@ -29,6 +29,9 @@ export const claudeCodeAdapter: ToolAdapter = {
   checkInstalled() {
     return commandExists("claude");
   },
+  getTargetFiles() {
+    return [settingsFile];
+  },
   isConfigured() {
     const s = readSettings();
     return !!s.env?.ANTHROPIC_AUTH_TOKEN;

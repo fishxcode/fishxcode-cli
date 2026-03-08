@@ -25,6 +25,13 @@ async function readOpencodeConfig(file: string): Promise<Record<string, unknown>
   }
 }
 
+function resolveOpencodeModel(model?: string): string {
+  if (!model) return "anthropic/claude-sonnet-4-5";
+  if (model.includes("/")) return model;
+  if (model.startsWith("gpt-")) return `openai/${model}`;
+  return `anthropic/${model}`;
+}
+
 export const opencodeAdapter: ToolAdapter = {
   id: "opencode",
   name: "OpenCode",
@@ -32,6 +39,9 @@ export const opencodeAdapter: ToolAdapter = {
   implemented: true,
   checkInstalled() {
     return commandExists("opencode");
+  },
+  getTargetFiles() {
+    return [resolveOpencodeConfig()];
   },
   isConfigured() {
     const file = resolveOpencodeConfig();
@@ -58,7 +68,7 @@ export const opencodeAdapter: ToolAdapter = {
       },
     };
     cfg.provider = provider;
-    cfg.model = cfg.model ?? "anthropic/claude-sonnet-4-5";
+    cfg.model = resolveOpencodeModel(ctx.model);
 
     await mkdir(dirname(file), { recursive: true });
     await writeFile(file, JSON.stringify(cfg, null, 2));

@@ -30,6 +30,12 @@ function removeManagedBlock(content: string): string {
   return kept.join("\n").trim();
 }
 
+function resolveAiderModel(model?: string): string {
+  if (!model) return "openai/claude-sonnet-4-5";
+  if (model.includes("/")) return model;
+  return `openai/${model}`;
+}
+
 export const aiderAdapter: ToolAdapter = {
   id: "aider",
   name: "Aider",
@@ -37,6 +43,9 @@ export const aiderAdapter: ToolAdapter = {
   implemented: true,
   checkInstalled() {
     return commandExists("aider");
+  },
+  getTargetFiles() {
+    return [aiderFile];
   },
   isConfigured() {
     if (!existsSync(aiderFile)) return false;
@@ -50,7 +59,7 @@ export const aiderAdapter: ToolAdapter = {
       `${marker} — https://fishxcode.com`,
       `openai-api-key: ${ctx.apiKey}`,
       `openai-api-base: ${ctx.baseOpenAI}`,
-      "model: openai/claude-sonnet-4-5",
+      `model: ${resolveAiderModel(ctx.model)}`,
       "",
     ].join("\n");
     const next = [clean, block].filter(Boolean).join("\n\n").trim();

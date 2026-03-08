@@ -28,7 +28,17 @@ program
 
 program.command("whoami").description("查看当前登录状态").action(whoamiCommand);
 program.command("logout").description("清除本地 API Key").action(logoutCommand);
-program.command("setup").description("执行工具配置流程（迁移版）").action(setupCommand);
+program
+  .command("setup")
+  .description("执行工具配置流程（迁移版）")
+  .option("-i, --interactive", "交互式选择配置项")
+  .option("--tools <ids>", "仅配置指定工具（逗号分隔），如 codex,aider")
+  .option("--model <model>", "覆盖默认模型，如 claude-opus-4-5")
+  .option("--dry-run", "仅预览将要修改的配置，不写文件")
+  .option("--backup", "写入前备份目标配置文件")
+  .action(async (opts) => {
+    await setupCommand(opts);
+  });
 program.command("doctor").description("检查环境与配置状态").action(doctorCommand);
 program.command("tools").description("列出支持工具").action(toolsCommand);
 program.command("reset").description("重置本地配置").action(resetCommand);

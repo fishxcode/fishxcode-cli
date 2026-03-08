@@ -7,6 +7,14 @@ import { CONFIG_DIRNAME } from "./constants.js";
 export type AppConfig = {
   apiKey?: string;
   savedAt?: string;
+  preferences?: AppPreferences;
+};
+
+export type AppPreferences = {
+  defaultTools?: string[];
+  defaultModel?: string;
+  interactive?: boolean;
+  backup?: boolean;
 };
 
 export const configDir = join(homedir(), CONFIG_DIRNAME);
@@ -39,6 +47,17 @@ export async function clearConfig(): Promise<void> {
 export async function getApiKey(): Promise<string> {
   const cfg = await loadConfig();
   return cfg.apiKey ?? process.env.FISHXCODE_API_KEY ?? "";
+}
+
+export async function getPreferences(): Promise<AppPreferences> {
+  const cfg = await loadConfig();
+  return cfg.preferences ?? {};
+}
+
+export async function savePreferences(patch: AppPreferences): Promise<AppConfig> {
+  const current = await loadConfig();
+  const nextPreferences = { ...(current.preferences ?? {}), ...patch };
+  return saveConfig({ preferences: nextPreferences });
 }
 
 export function maskKey(key: string): string {

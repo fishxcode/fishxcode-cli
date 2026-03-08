@@ -31,17 +31,21 @@ export const codexAdapter: ToolAdapter = {
   checkInstalled() {
     return commandExists("codex");
   },
+  getTargetFiles() {
+    return [tomlFile, jsonFile];
+  },
   isConfigured() {
     if (!existsSync(tomlFile)) return false;
     const content = readFileSync(tomlFile, "utf8");
     return content.includes('model_provider = "fishxcode"') && content.includes("fishxcode.com");
   },
   async configure(ctx) {
+    const model = ctx.model ?? "gpt-5.4";
     await mkdir(codexDir, { recursive: true });
     const current = await readToml();
     const cleaned = removeFishxcodeBlocks(current).trim();
     const next = [
-      'model = "gpt-5.4"',
+      `model = "${model}"`,
       'model_provider = "fishxcode"',
       "",
       cleaned,
@@ -61,7 +65,7 @@ export const codexAdapter: ToolAdapter = {
       try {
         const raw = await readFile(jsonFile, "utf8");
         const json = JSON.parse(raw) as Record<string, unknown>;
-        json.model = "gpt-5.4";
+        json.model = model;
         json.provider = "fishxcode";
         const providers = (json.providers ?? {}) as Record<string, unknown>;
         providers.fishxcode = {

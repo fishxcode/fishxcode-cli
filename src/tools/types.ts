@@ -2,6 +2,7 @@ export type ConfigureContext = {
   apiKey: string;
   baseAnthropic: string;
   baseOpenAI: string;
+  model?: string;
 };
 
 export type ConfigureResult = {
@@ -18,4 +19,5 @@ export type ToolAdapter = {
   isConfigured: () => boolean;
   configure: (ctx: ConfigureContext) => Promise<ConfigureResult>;
   reset: () => Promise<void>;
+  getTargetFiles?: () => string[];
 };

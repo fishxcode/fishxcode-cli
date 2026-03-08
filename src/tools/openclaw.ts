@@ -35,6 +35,13 @@ function readConfig(): OpenClawConfig {
   }
 }
 
+function resolveOpenclawPrimaryModel(model?: string): string {
+  if (!model) return "anthropic/claude-sonnet-4-5";
+  if (model.includes("/")) return model;
+  if (model.startsWith("gpt-")) return `openai/${model}`;
+  return `anthropic/${model}`;
+}
+
 export const openclawAdapter: ToolAdapter = {
   id: "openclaw",
   name: "OpenClaw",
@@ -42,6 +49,9 @@ export const openclawAdapter: ToolAdapter = {
   implemented: true,
   checkInstalled() {
     return commandExists("openclaw");
+  },
+  getTargetFiles() {
+    return [configFile];
   },
   isConfigured() {
     const c = readConfig();
@@ -58,7 +68,7 @@ export const openclawAdapter: ToolAdapter = {
 
     c.agents ??= {};
     c.agents.defaults ??= {};
-    c.agents.defaults.model ??= { primary: "anthropic/claude-sonnet-4-5" };
+    c.agents.defaults.model = { primary: resolveOpenclawPrimaryModel(ctx.model) };
 
     c.models ??= {};
     c.models.mode = "merge";

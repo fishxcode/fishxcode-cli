@@ -9,10 +9,17 @@ const continueDir = join(toolHome, ".continue");
 const yamlFile = join(continueDir, "config.yaml");
 const jsonFile = join(continueDir, "config.json");
 
-const FISHXCODE_MODELS = [
+const DEFAULT_MODELS = [
   { name: "FishXCode — Claude Sonnet", model: "claude-sonnet-4-5" },
   { name: "FishXCode — Claude Opus", model: "claude-opus-4-5" },
 ];
+
+function getFishxcodeModels(model?: string): Array<{ name: string; model: string }> {
+  if (!model) return DEFAULT_MODELS;
+  const custom = { name: `FishXCode — ${model}`, model };
+  const rest = DEFAULT_MODELS.filter((item) => item.model !== model);
+  return [custom, ...rest];
+}
 
 function getConfigFormat(): "yaml" | "json" {
   if (existsSync(yamlFile)) return "yaml";
@@ -29,7 +36,11 @@ function removeFishxcodeYamlBlocks(content: string): string {
   return content.replace(/ {2}- name: FishXCode[^\n]*\n( {4}[^\n]*\n)*/g, "");
 }
 
-async function writeYamlConfig(apiKey: string, baseUrl: string): Promise<void> {
+async function writeYamlConfig(
+  apiKey: string,
+  baseUrl: string,
+  models: Array<{ name: string; model: string }>,
+): Promise<void> {
   await mkdir(continueDir, { recursive: true });
 
   let content = removeFishxcodeYamlBlocks(readYaml());
@@ -37,7 +48,7 @@ async function writeYamlConfig(apiKey: string, baseUrl: string): Promise<void> {
     content = `models:\n${content}`;
   }
 
-  const modelBlocks = FISHXCODE_MODELS.map((m) => {
+  const modelBlocks = models.map((m) => {
     return [
       `  - name: ${m.name}`,
       "    provider: openai",
@@ -82,6 +93,9 @@ export const continueAdapter: ToolAdapter = {
   checkInstalled() {
     return existsSync(continueDir);
   },
+  getTargetFiles() {
+    return [yamlFile, jsonFile];
+  },
   isConfigured() {
     if (existsSync(yamlFile)) {
       return readYaml().includes("fishxcode.com");
@@ -90,9 +104,10 @@ export const continueAdapter: ToolAdapter = {
     return (cfg.models ?? []).some((m) => String(m.apiBase ?? "").includes("fishxcode.com"));
   },
   async configure(ctx) {
+    const models = getFishxcodeModels(ctx.model);
     const format = getConfigFormat();
     if (format === "yaml") {
-      await writeYamlConfig(ctx.apiKey, ctx.baseOpenAI);
+      await writeYamlConfig(ctx.apiKey, ctx.baseOpenAI, models);
       return { file: yamlFile, hot: true };
     }
 
@@ -101,7 +116,7 @@ export const continueAdapter: ToolAdapter = {
       (m) => !String(m.apiBase ?? "").includes("fishxcode.com"),
     );
     cfg.models = [
-      ...FISHXCODE_MODELS.map((m) => ({
+      ...models.map((m) => ({
         title: m.name,
         provider: "openai",
         model: m.model,
