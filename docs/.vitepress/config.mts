@@ -1,6 +1,7 @@
 import { defineConfig } from "vitepress";
 import { withPwa } from "@vite-pwa/vitepress";
 import { groupIconVitePlugin } from "vitepress-plugin-group-icons";
+import { spawnSync } from "node:child_process";
 
 const SITE_URL = "https://cli.fishxcode.com";
 const SITE_TITLE = "FishXCode CLI";
@@ -8,6 +9,7 @@ const SITE_DESC =
   "AI 编码工具管理器 — 一键接入 FishXCode API，支持 claude-code、aider、codex、opencode 等主流工具";
 
 const BASE = (process.env.VITEPRESS_BASE ?? "/").replace(/([^/])$/, "$1/");
+const hasGit = spawnSync("git", ["--version"], { stdio: "ignore" }).status === 0;
 
 function p(path: string) {
   return BASE.replace(/\/$/, "") + path;
@@ -18,7 +20,7 @@ export default withPwa(
     base: BASE,
     title: SITE_TITLE,
     description: SITE_DESC,
-    lastUpdated: true,
+    lastUpdated: hasGit,
     cleanUrls: true,
     srcExclude: ["**/CLAUDE.md"],
     rewrites: {
