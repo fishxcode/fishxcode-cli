@@ -1,21 +1,23 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted } from "vue";
 
-const visible = ref(false)
-let onScroll: (() => void) | null = null
+const visible = ref(false);
+let onScroll: (() => void) | null = null;
 
 onMounted(() => {
-  onScroll = () => { visible.value = window.scrollY > 300 }
-  onScroll()
-  window.addEventListener('scroll', onScroll, { passive: true })
-})
+  onScroll = () => {
+    visible.value = window.scrollY > 300;
+  };
+  onScroll();
+  window.addEventListener("scroll", onScroll, { passive: true });
+});
 
 onUnmounted(() => {
-  if (onScroll) window.removeEventListener('scroll', onScroll)
-})
+  if (onScroll) window.removeEventListener("scroll", onScroll);
+});
 
 function scrollToTop() {
-  window.scrollTo({ top: 0, behavior: 'smooth' })
+  window.scrollTo({ top: 0, behavior: "smooth" });
 }
 </script>
 

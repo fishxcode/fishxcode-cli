@@ -10,19 +10,19 @@
 
 :root {
   /* ── 暖金色 (主品牌) ──────────────────────────────────────────────── */
-  --fishx-gold-1: #9a6f20;   /* 深金，用于可读文字 */
-  --fishx-gold-2: #b8862e;   /* 中金，悬停态 */
-  --fishx-gold-3: #c9973e;   /* 暖金，实体按钮背景 */
+  --fishx-gold-1: #9a6f20; /* 深金，用于可读文字 */
+  --fishx-gold-2: #b8862e; /* 中金，悬停态 */
+  --fishx-gold-3: #c9973e; /* 暖金，实体按钮背景 */
   --fishx-gold-soft: rgba(185, 134, 46, 0.12);
 
   /* ── 柔和玫瑰粉 (次级强调) ─────────────────────────────────────────── */
-  --fishx-pink-1: #b04468;   /* 深玫瑰，文字 */
-  --fishx-pink-2: #c85c80;   /* 中玫瑰，悬停 */
-  --fishx-pink-3: #de7898;   /* 柔粉，背景点缀 */
+  --fishx-pink-1: #b04468; /* 深玫瑰，文字 */
+  --fishx-pink-2: #c85c80; /* 中玫瑰，悬停 */
+  --fishx-pink-3: #de7898; /* 柔粉，背景点缀 */
   --fishx-pink-soft: rgba(222, 120, 152, 0.12);
 
   /* ── 中性暖灰 ─────────────────────────────────────────────────────── */
-  --fishx-warm-bg: #fdf9f5;   /* 奶油白页面底色 */
+  --fishx-warm-bg: #fdf9f5; /* 奶油白页面底色 */
   --fishx-warm-border: rgba(185, 134, 46, 0.18);
 }
 
@@ -109,10 +109,14 @@
 }
 
 @media (min-width: 640px) {
-  :root { --vp-home-hero-image-filter: blur(60px); }
+  :root {
+    --vp-home-hero-image-filter: blur(60px);
+  }
 }
 @media (min-width: 960px) {
-  :root { --vp-home-hero-image-filter: blur(72px); }
+  :root {
+    --vp-home-hero-image-filter: blur(72px);
+  }
 }
 
 /* =========================================================================
@@ -210,14 +214,14 @@
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(185, 134, 46, 0.50);
+  background: rgba(185, 134, 46, 0.5);
 }
 
 /* =========================================================================
  * 代码块 — 暖色边框
  * ========================================================================= */
 
-.vp-doc div[class*='language-'] {
+.vp-doc div[class*="language-"] {
   border: 1px solid rgba(185, 134, 46, 0.14);
 }
 

@@ -1,41 +1,61 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, watch } from 'vue'
-import { useRoute } from 'vitepress'
+import { ref, computed, onMounted, watch } from "vue";
+import { useRoute } from "vitepress";
 
-const route = useRoute()
-const currentPath = ref('/')
+const route = useRoute();
+const currentPath = ref("/");
 
 function updatePath() {
-  currentPath.value = window.location.pathname
+  currentPath.value = window.location.pathname;
 }
 
-onMounted(updatePath)
-watch(() => route.path, updatePath)
+onMounted(updatePath);
+watch(() => route.path, updatePath);
 
 const i18n = {
-  'zh-CN': { title: '页面未找到', subtitle: '你访问的页面不存在', link: '返回首页', home: '/' },
-  'en-US': { title: 'Page not found', subtitle: 'The page you are looking for does not exist', link: 'Back to Home', home: '/en/' },
-  'fr-FR': { title: 'Page introuvable', subtitle: 'La page que vous recherchez n\'existe pas', link: 'Retour à l\'accueil', home: '/fr/' },
-  'es-ES': { title: 'Página no encontrada', subtitle: 'La página que buscas no existe', link: 'Volver al inicio', home: '/es/' },
-  'pt-BR': { title: 'Página não encontrada', subtitle: 'A página que você procura não existe', link: 'Voltar ao início', home: '/pt/' },
-}
+  "zh-CN": { title: "页面未找到", subtitle: "你访问的页面不存在", link: "返回首页", home: "/" },
+  "en-US": {
+    title: "Page not found",
+    subtitle: "The page you are looking for does not exist",
+    link: "Back to Home",
+    home: "/en/",
+  },
+  "fr-FR": {
+    title: "Page introuvable",
+    subtitle: "La page que vous recherchez n'existe pas",
+    link: "Retour à l'accueil",
+    home: "/fr/",
+  },
+  "es-ES": {
+    title: "Página no encontrada",
+    subtitle: "La página que buscas no existe",
+    link: "Volver al inicio",
+    home: "/es/",
+  },
+  "pt-BR": {
+    title: "Página não encontrada",
+    subtitle: "A página que você procura não existe",
+    link: "Voltar ao início",
+    home: "/pt/",
+  },
+};
 
 const prefixMap: Record<string, string> = {
-  '/en/': 'en-US',
-  '/fr/': 'fr-FR',
-  '/es/': 'es-ES',
-  '/pt/': 'pt-BR',
-}
+  "/en/": "en-US",
+  "/fr/": "fr-FR",
+  "/es/": "es-ES",
+  "/pt/": "pt-BR",
+};
 
 const locale = computed(() => {
-  const path = currentPath.value
+  const path = currentPath.value;
   for (const [prefix, lang] of Object.entries(prefixMap)) {
-    if (path.startsWith(prefix)) return lang
+    if (path.startsWith(prefix)) return lang;
   }
-  return 'zh-CN'
-})
+  return "zh-CN";
+});
 
-const t = computed(() => i18n[locale.value as keyof typeof i18n])
+const t = computed(() => i18n[locale.value as keyof typeof i18n]);
 </script>
 
 <template>

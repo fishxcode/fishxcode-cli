@@ -41,11 +41,15 @@ graph TD
     B --> E["src/tools/"]
     A --> F["test/"]
     A --> G[".github/workflows/"]
+    A --> H["docs/"]
+    H --> I["docs/.vitepress/"]
+    H --> J["docs/zh-CN/ | en/ | fr/ | es/ | pt/"]
 
     click C "./src/commands/CLAUDE.md" "查看 commands 模块文档"
     click D "./src/lib/CLAUDE.md" "查看 lib 模块文档"
     click E "./src/tools/CLAUDE.md" "查看 tools 模块文档"
     click F "./test/CLAUDE.md" "查看 test 模块文档"
+    click H "./docs/CLAUDE.md" "查看 docs 模块文档"
 ```
 
 ---
@@ -58,6 +62,7 @@ graph TD
 | [src/lib/](./src/lib/CLAUDE.md) | 共享库：配置读写、常量定义、交互式提示、工具信息列表 |
 | [src/tools/](./src/tools/CLAUDE.md) | 6 个 AI 工具适配器 + ToolAdapter 类型定义 + 工具函数 |
 | [test/](./test/CLAUDE.md) | 单元测试：config.maskKey、tools.parseJsonc |
+| [docs/](./docs/CLAUDE.md) | VitePress 文档站：5 语言内容 + 自定义主题，部署到 cli.fishxcode.com |
 
 ---
 
@@ -82,6 +87,11 @@ bun run build                 # 输出到 dist/index.js
 # 发布前全量检查（typecheck + test + build）
 bun run check
 
+# 文档站开发
+bun run docs:dev              # 本地热更新预览
+bun run docs:build            # 构建文档站（输出到 docs/.vitepress/dist/）
+bun run docs:preview          # 预览构建结果
+
 # 全局安装后使用
 fishx login
 fishx setup
@@ -98,6 +108,7 @@ fishx whoami
 | 变量名 | 说明 |
 | --- | --- |
 | `FISHXCODE_API_KEY` | 可替代 login 持久化配置的 API Key |
+| `VITEPRESS_BASE` | 文档站部署 base 路径（默认 `/`，Vercel 部署无需设置） |
 
 ---
 
@@ -119,7 +130,7 @@ fishx whoami
 
 - 严格 TypeScript（`"strict": true`），`noEmit` 模式下通过 `tsc` 类型检查
 - 模块系统：ESM（`"type": "module"`），导入时显式加 `.js` 后缀
-- 无 Lint 工具配置（ESLint/Biome），依赖 TypeScript 严格模式兜底
+- 代码格式化与 Lint 工具：**Biome**（`@biomejs/biome ^1.9.4`），运行 `bun run lint` 检查，`bun run format` 自动格式化
 - 每个工具适配器独立一个文件，统一实现 `ToolAdapter` 接口
 - 配置块用标记注释（如 `# fishxcode-cli managed`）隔离，支持幂等写入与清理
 
@@ -132,7 +143,8 @@ fishx whoami
 - **新增工具适配器**：实现 `ToolAdapter` 接口（见 `src/tools/types.ts`），在 `src/tools/index.ts` 注册，在 `src/lib/tools.ts` 的 `SUPPORTED_TOOLS` 中添加条目
 - **配置路径约定**：适配器写入 `~/<tool_config_dir>/`，不写入项目目录
 - **幂等性**：`configure` 须保证重复执行结果一致，`reset` 须仅清除本工具写入的字段
-- **不要修改**：`dist/` 目录（构建产物，gitignore 已忽略）
+- **新增文档页面**：在对应语言目录（如 `docs/zh-CN/`）添加 Markdown 文件，并在 `docs/.vitepress/config.mts` 对应 locale 的 `sidebar` 中注册
+- **不要修改**：`dist/` 目录（构建产物，gitignore 已忽略）、`docs/.vitepress/dist/`（文档站构建产物）、`docs/.vitepress/cache/`（构建缓存）
 
 ---
 
@@ -140,4 +152,5 @@ fishx whoami
 
 | 时间 | 类型 | 内容 |
 | --- | --- | --- |
+| 2026-03-08 13:16:14 | 增量更新 | 新增 docs/ 模块入口（VitePress 文档站），更新 Mermaid 结构图与模块索引；修正编码规范（补充 Biome lint/format 信息）；补充 docs:dev/build/preview 命令和 VITEPRESS_BASE 环境变量 |
 | 2026-03-08 12:31:46 | 初始化 | 首次生成 AI 上下文文档（根级 + 4 个模块级 CLAUDE.md，.claude/index.json） |

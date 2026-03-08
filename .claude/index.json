@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-03-08T12:31:46Z",
+  "generated_at": "2026-03-08T13:16:14Z",
   "project": {
     "name": "fishxcode-cli",
     "version": "0.1.0",
@@ -11,11 +11,20 @@
     "build_output": "dist/index.js"
   },
   "scan_summary": {
-    "total_source_files": 20,
-    "scanned_files": 20,
+    "total_source_files": 47,
+    "scanned_files": 47,
     "coverage_percent": 100,
     "truncated": false,
-    "ignored_dirs": ["node_modules", "dist", ".DS_Store", "coverage", "bun.lock", "bun.lockb"]
+    "ignored_dirs": [
+      "node_modules",
+      "dist",
+      ".DS_Store",
+      "coverage",
+      "bun.lock",
+      "bun.lockb",
+      "docs/.vitepress/dist",
+      "docs/.vitepress/cache"
+    ]
   },
   "modules": [
     {
@@ -139,6 +148,65 @@
         "has_data_model": false
       },
       "gaps": ["命令层、适配器层无测试覆盖"]
+    },
+    {
+      "id": "docs",
+      "path": "docs",
+      "language": "TypeScript + Markdown + Vue",
+      "doc": "docs/CLAUDE.md",
+      "files": [
+        "docs/.vitepress/config.mts",
+        "docs/.vitepress/theme/index.ts",
+        "docs/.vitepress/theme/NotFound.vue",
+        "docs/.vitepress/theme/components/BackToTop.vue",
+        "docs/.vitepress/theme/style.css",
+        "docs/.vitepress/theme/dark-mode.css",
+        "docs/public/logo.svg",
+        "docs/zh-CN/index.md",
+        "docs/zh-CN/quick-start.md",
+        "docs/zh-CN/commands.md",
+        "docs/zh-CN/tools.md",
+        "docs/zh-CN/release.md",
+        "docs/en/index.md",
+        "docs/en/quick-start.md",
+        "docs/en/commands.md",
+        "docs/en/tools.md",
+        "docs/en/release.md",
+        "docs/fr/index.md",
+        "docs/fr/quick-start.md",
+        "docs/fr/commands.md",
+        "docs/fr/tools.md",
+        "docs/fr/release.md",
+        "docs/es/index.md",
+        "docs/es/quick-start.md",
+        "docs/es/commands.md",
+        "docs/es/tools.md",
+        "docs/es/release.md",
+        "docs/pt/index.md",
+        "docs/pt/quick-start.md",
+        "docs/pt/commands.md",
+        "docs/pt/tools.md",
+        "docs/pt/release.md"
+      ],
+      "site": "https://cli.fishxcode.com",
+      "engine": "vitepress@^1.6.4",
+      "source_dir": "docs/",
+      "output_dir": "docs/.vitepress/dist",
+      "deploy": "vercel",
+      "locales": ["zh-CN (root)", "en", "fr", "es", "pt"],
+      "rewrites": { "zh-CN/:path": ":path" },
+      "theme": "custom (warm gold + rose-pink, dark mode)",
+      "plugins": ["@vite-pwa/vitepress", "vitepress-plugin-group-icons", "medium-zoom"],
+      "scripts": ["docs:dev", "docs:build", "docs:preview"],
+      "config": "docs/.vitepress/config.mts",
+      "theme_dir": "docs/.vitepress/theme/",
+      "coverage": {
+        "has_entry": true,
+        "has_interface_doc": true,
+        "has_tests": false,
+        "has_data_model": false
+      },
+      "gaps": ["文档内容页面无自动化测试（链接检查、内容校验）"]
     }
   ],
   "ci": {
@@ -148,29 +216,32 @@
     "release_trigger": ["push tags v*", "workflow_dispatch"],
     "publish_registry": "https://registry.npmjs.org"
   },
-  "docs": {
-    "site": "https://cli.fishxcode.com",
-    "engine": "vitepress@^1.6.4",
-    "source_dir": "docs/",
-    "output_dir": "docs/.vitepress/dist",
-    "deploy": "vercel",
-    "locales": ["zh-CN (root)", "en", "fr", "es", "pt"],
-    "rewrites": { "zh-CN/:path": ":path" },
-    "theme": "custom (warm gold + rose-pink, dark mode)",
-    "plugins": ["@vite-pwa/vitepress", "vitepress-plugin-group-icons", "medium-zoom"],
-    "scripts": ["docs:dev", "docs:build", "docs:preview"],
-    "config": "docs/.vitepress/config.mts",
-    "theme_dir": "docs/.vitepress/theme/"
+  "tooling": {
+    "lint": "biome (@biomejs/biome ^1.9.4)",
+    "format": "biome",
+    "lint_command": "bun run lint",
+    "format_command": "bun run format"
   },
   "gaps_summary": [
     "命令层（src/commands/）无单元测试",
     "适配器层 configure/reset 无集成测试",
     "balance 命令未接入服务端 API",
-    "cursor 工具适配器未实现"
+    "cursor 工具适配器未实现",
+    "docs 文档内容无链接/内容自动化校验"
   ],
   "next_scan_priority": [
     "test/（补充适配器集成测试后重新扫描）",
     "src/commands/balance.ts（balance 功能实现后更新文档）",
-    "docs/（VitePress 文档内容扩充后重新扫描）"
-  ]
+    "docs/（各语言内容扩充后重新扫描）"
+  ],
+  "incremental_update": {
+    "previous_scan": "2026-03-08T12:31:46Z",
+    "this_scan": "2026-03-08T13:16:14Z",
+    "changes": [
+      "新增 docs/ 模块（VitePress 文档站，5 语言）",
+      "新建 docs/CLAUDE.md",
+      "更新根级 CLAUDE.md：加入 docs/ 模块索引、Mermaid 图、docs:* 命令、VITEPRESS_BASE 环境变量、修正 Biome lint/format 信息",
+      "更新 .claude/index.json：加入 docs 模块、tooling 字段、修正总文件数"
+    ]
+  }
 }

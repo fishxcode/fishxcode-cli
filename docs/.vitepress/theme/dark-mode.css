@@ -37,12 +37,12 @@
  * 代码块
  * ========================================================================= */
 
-.dark .vp-doc div[class*='language-'] {
+.dark .vp-doc div[class*="language-"] {
   background: rgba(28, 24, 20, 0.9);
   border: 1px solid rgba(196, 148, 56, 0.14);
 }
 
-.dark .vp-doc div[class*='language-'] code {
+.dark .vp-doc div[class*="language-"] code {
   color: var(--vp-c-text-1);
 }
 
@@ -177,7 +177,7 @@
 }
 
 .dark ::-webkit-scrollbar-thumb:hover {
-  background: rgba(196, 148, 56, 0.50);
+  background: rgba(196, 148, 56, 0.5);
 }
 
 /* =========================================================================

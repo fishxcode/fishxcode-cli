@@ -11,7 +11,7 @@
 ## 入口与文件说明
 
 | 文件 | 职责 |
-|---|---|
+| --- | --- |
 | `types.ts` | `ToolAdapter` 接口与 `ConfigureContext` / `ConfigureResult` 类型定义 |
 | `utils.ts` | 跨适配器工具函数：`commandExists`、`readTextIfExists`、`parseJsonc` |
 | `index.ts` | 聚合并导出所有适配器实例列表 `adapters`，提供 `getAdapterById()` |
@@ -61,7 +61,7 @@ export type ToolAdapter = {
 ## 各适配器配置文件与策略
 
 | 工具 | 配置文件 | 写入策略 | hot |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | Claude Code | `~/.claude/settings.json` | 写入 `env.ANTHROPIC_AUTH_TOKEN` / `ANTHROPIC_BASE_URL`，删除 `ANTHROPIC_API_KEY` | true |
 | Codex CLI | `~/.codex/config.toml`（+可选 `config.json`） | 正则清理旧 fishxcode 块后追加 `[model_providers.fishxcode]` | false |
 | Aider | `~/.aider.conf.yml` | 标记注释块隔离，幂等写入 `openai-api-key` / `openai-api-base` | false |
@@ -117,7 +117,7 @@ A：各适配器策略不同。aider 使用标记块隔离，只替换 fishxcode
 
 ## 相关文件清单
 
-```
+```text
 src/tools/
   types.ts        — ToolAdapter / ConfigureContext / ConfigureResult 类型
   utils.ts        — commandExists / readTextIfExists / parseJsonc
@@ -135,5 +135,6 @@ src/tools/
 ## 变更记录 (Changelog)
 
 | 时间 | 类型 | 内容 |
-|---|---|---|
+| --- | --- | --- |
+| 2026-03-08 13:16:14 | 增量扫描 | 内容完整，无新缺口，无需更新 |
 | 2026-03-08 12:31:46 | 初始化 | 首次生成模块 CLAUDE.md |
