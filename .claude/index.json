@@ -224,24 +224,39 @@
   },
   "gaps_summary": [
     "命令层（src/commands/）无单元测试",
-    "适配器层 configure/reset 无集成测试",
-    "balance 命令未接入服务端 API",
+    "适配器层 configure/reset/checkInstalled/isConfigured 无集成测试",
+    "balance 命令未接入服务端 API（当前为占位实现）",
     "cursor 工具适配器未实现",
-    "docs 文档内容无链接/内容自动化校验"
+    "docs 各语言内容页（quick-start / commands / tools / release）内容待完善",
+    "docs CI/CD 部署工作流（.github/workflows/deploy.yml）待确认完整性"
   ],
   "next_scan_priority": [
     "test/（补充适配器集成测试后重新扫描）",
-    "src/commands/balance.ts（balance 功能实现后更新文档）",
-    "docs/（各语言内容扩充后重新扫描）"
+    "src/commands/balance.ts（balance 服务端 API 接入后更新）",
+    "docs/（各语言内容页面完善后重新扫描）",
+    ".github/workflows/deploy.yml（Vercel 部署工作流配置确认后更新 CI 字段）"
   ],
-  "incremental_update": {
-    "previous_scan": "2026-03-08T12:31:46Z",
-    "this_scan": "2026-03-08T13:16:14Z",
-    "changes": [
-      "新增 docs/ 模块（VitePress 文档站，5 语言）",
-      "新建 docs/CLAUDE.md",
-      "更新根级 CLAUDE.md：加入 docs/ 模块索引、Mermaid 图、docs:* 命令、VITEPRESS_BASE 环境变量、修正 Biome lint/format 信息",
-      "更新 .claude/index.json：加入 docs 模块、tooling 字段、修正总文件数"
-    ]
-  }
+  "incremental_updates": [
+    {
+      "scan": "2026-03-08T13:16:14Z",
+      "base": "2026-03-08T12:31:46Z",
+      "status": "completed",
+      "changes": [
+        "新增 docs/ 模块（VitePress 文档站，5 语言 × 5 页面）",
+        "新建 docs/CLAUDE.md",
+        "更新根级 CLAUDE.md：加入 docs/ 模块索引、Mermaid 图、docs:* 命令、VITEPRESS_BASE 环境变量、修正 Biome lint/format 信息",
+        "更新 .claude/index.json：加入 docs 模块、tooling 字段、修正总文件数 20→47"
+      ]
+    },
+    {
+      "scan": "2026-03-08T13:30:00Z",
+      "base": "2026-03-08T13:16:14Z",
+      "status": "completed",
+      "changes": [
+        "修复全部 6 个 CLAUDE.md 的 markdownlint 警告（MD040 无语言代码块、MD060 表格分隔行缺空格）",
+        "docs/ 初始建站工作全部完成：config、theme（暖金色品牌色 / 深色模式 / BackToTop / NotFound）、5 语言首页、logo、vercel.json、package.json docs 脚本和依赖均已就绪",
+        "bun run docs:build 验证通过（3.68s，无报错）"
+      ]
+    }
+  ]
 }
