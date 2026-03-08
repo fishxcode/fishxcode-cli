@@ -20,6 +20,7 @@ export default withPwa(
     description: SITE_DESC,
     lastUpdated: true,
     cleanUrls: true,
+    srcExclude: ["**/CLAUDE.md"],
     rewrites: {
       "zh-CN/:path": ":path",
     },
