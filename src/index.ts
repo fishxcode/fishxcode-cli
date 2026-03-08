@@ -1,0 +1,46 @@
+#!/usr/bin/env node
+import { Command } from "commander";
+import pc from "picocolors";
+import pkg from "../package.json" with { type: "json" };
+import { balanceCommand } from "./commands/balance.js";
+import { doctorCommand } from "./commands/doctor.js";
+import { loginCommand, logoutCommand, whoamiCommand } from "./commands/login.js";
+import { resetCommand } from "./commands/reset.js";
+import { setupCommand } from "./commands/setup.js";
+import { toolsCommand } from "./commands/tools.js";
+import { API_BASE, APP_NAME } from "./lib/constants.js";
+
+const program = new Command();
+
+program
+  .name("fishx")
+  .description("一键配置 AI 工具接入 FishXCode API（Bun + TS）")
+  .version(pkg.version, "-v, --version")
+  .addHelpText("before", `\n${APP_NAME} v${pkg.version}\n${API_BASE}\n`);
+
+program
+  .command("login")
+  .option("-k, --key <apiKey>", "直接传入 API Key")
+  .description("登录并保存 API Key")
+  .action(async (opts) => {
+    await loginCommand(opts.key);
+  });
+
+program.command("whoami").description("查看当前登录状态").action(whoamiCommand);
+program.command("logout").description("清除本地 API Key").action(logoutCommand);
+program.command("setup").description("执行工具配置流程（迁移版）").action(setupCommand);
+program.command("doctor").description("检查环境与配置状态").action(doctorCommand);
+program.command("tools").description("列出支持工具").action(toolsCommand);
+program.command("reset").description("重置本地配置").action(resetCommand);
+program.command("balance").description("查看余额（占位）").action(balanceCommand);
+
+program.action(() => {
+  console.log(pc.cyan("快速开始: fishx login && fishx setup"));
+  program.help();
+});
+
+program.parseAsync(process.argv).catch((error: unknown) => {
+  const message = error instanceof Error ? error.message : String(error);
+  console.error(pc.red(`错误: ${message}`));
+  process.exit(1);
+});

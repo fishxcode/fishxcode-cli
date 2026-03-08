@@ -1,0 +1,162 @@
+{
+  "generated_at": "2026-03-08T12:31:46Z",
+  "project": {
+    "name": "fishxcode-cli",
+    "version": "0.1.0",
+    "root": ".",
+    "language": "TypeScript",
+    "runtime": ["bun>=1.1.0", "node>=18"],
+    "entry": "src/index.ts",
+    "bin": ["fishx", "fishxcode"],
+    "build_output": "dist/index.js"
+  },
+  "scan_summary": {
+    "total_source_files": 20,
+    "scanned_files": 20,
+    "coverage_percent": 100,
+    "truncated": false,
+    "ignored_dirs": ["node_modules", "dist", ".DS_Store", "coverage", "bun.lock", "bun.lockb"]
+  },
+  "modules": [
+    {
+      "id": "src/commands",
+      "path": "src/commands",
+      "language": "TypeScript",
+      "entry": "src/index.ts",
+      "doc": "src/commands/CLAUDE.md",
+      "files": [
+        "src/commands/balance.ts",
+        "src/commands/doctor.ts",
+        "src/commands/login.ts",
+        "src/commands/reset.ts",
+        "src/commands/setup.ts",
+        "src/commands/tools.ts"
+      ],
+      "commands": ["login", "logout", "whoami", "setup", "doctor", "tools", "reset", "balance"],
+      "coverage": {
+        "has_entry": true,
+        "has_interface_doc": true,
+        "has_tests": false,
+        "has_data_model": false
+      },
+      "gaps": ["缺命令层单元测试", "balance 命令为占位未实现"]
+    },
+    {
+      "id": "src/lib",
+      "path": "src/lib",
+      "language": "TypeScript",
+      "entry": "src/lib/config.ts",
+      "doc": "src/lib/CLAUDE.md",
+      "files": [
+        "src/lib/config.ts",
+        "src/lib/constants.ts",
+        "src/lib/prompt.ts",
+        "src/lib/tools.ts"
+      ],
+      "exports": {
+        "constants": ["APP_NAME", "API_BASE", "API_BASE_OPENAI", "CONFIG_DIRNAME"],
+        "config": ["loadConfig", "saveConfig", "clearConfig", "getApiKey", "maskKey", "AppConfig"],
+        "prompt": ["ask"],
+        "tools": ["SUPPORTED_TOOLS", "getImplementedAdapter", "ToolInfo"]
+      },
+      "coverage": {
+        "has_entry": true,
+        "has_interface_doc": true,
+        "has_tests": true,
+        "has_data_model": true
+      },
+      "gaps": ["loadConfig/saveConfig/clearConfig/getApiKey 无测试", "ask() 无测试"]
+    },
+    {
+      "id": "src/tools",
+      "path": "src/tools",
+      "language": "TypeScript",
+      "entry": "src/tools/index.ts",
+      "doc": "src/tools/CLAUDE.md",
+      "files": [
+        "src/tools/types.ts",
+        "src/tools/utils.ts",
+        "src/tools/index.ts",
+        "src/tools/claude-code.ts",
+        "src/tools/codex.ts",
+        "src/tools/aider.ts",
+        "src/tools/continue.ts",
+        "src/tools/opencode.ts",
+        "src/tools/openclaw.ts"
+      ],
+      "adapters": [
+        {
+          "id": "claude-code",
+          "config_file": "~/.claude/settings.json",
+          "hot": true
+        },
+        {
+          "id": "codex",
+          "config_file": "~/.codex/config.toml",
+          "hot": false
+        },
+        {
+          "id": "aider",
+          "config_file": "~/.aider.conf.yml",
+          "hot": false
+        },
+        {
+          "id": "continue",
+          "config_file": "~/.continue/config.yaml or config.json",
+          "hot": true
+        },
+        {
+          "id": "opencode",
+          "config_file": "~/.config/opencode/opencode.json (multi-candidate)",
+          "hot": false
+        },
+        {
+          "id": "openclaw",
+          "config_file": "~/.openclaw/openclaw.json",
+          "hot": false
+        }
+      ],
+      "coverage": {
+        "has_entry": true,
+        "has_interface_doc": true,
+        "has_tests": true,
+        "has_data_model": true
+      },
+      "gaps": ["configure/reset/checkInstalled/isConfigured 均无测试", "cursor 适配器未实现"]
+    },
+    {
+      "id": "test",
+      "path": "test",
+      "language": "TypeScript",
+      "doc": "test/CLAUDE.md",
+      "files": ["test/config.test.ts", "test/utils.test.ts"],
+      "test_suites": 2,
+      "test_cases": 3,
+      "coverage": {
+        "has_entry": true,
+        "has_interface_doc": true,
+        "has_tests": true,
+        "has_data_model": false
+      },
+      "gaps": ["命令层、适配器层无测试覆盖"]
+    }
+  ],
+  "ci": {
+    "ci_workflow": ".github/workflows/ci.yml",
+    "release_workflow": ".github/workflows/release.yml",
+    "ci_steps": ["typecheck", "bun test", "bun build"],
+    "release_trigger": ["push tags v*", "workflow_dispatch"],
+    "publish_registry": "https://registry.npmjs.org"
+  },
+  "gaps_summary": [
+    "命令层（src/commands/）无单元测试",
+    "适配器层 configure/reset 无集成测试",
+    "balance 命令未接入服务端 API",
+    "cursor 工具适配器未实现",
+    "无 ESLint/Biome 等 Lint 配置"
+  ],
+  "next_scan_priority": [
+    "test/（补充适配器集成测试后重新扫描）",
+    "src/commands/balance.ts（功能实现后更新文档）"
+  ]
+}
