@@ -2,6 +2,8 @@
 
 ## Installation
 
+📦 Paquet npm : <https://www.npmjs.com/package/fishxcode-cli>
+
 ```bash
 npm i -g fishxcode-cli
 ```
@@ -9,7 +11,7 @@ npm i -g fishxcode-cli
 Ou exécution directe :
 
 ```bash
-npx fishxcode-cli@latest fishx setup
+npx fishxcode-cli@latest setup
 ```
 
 ## Flux d'initialisation

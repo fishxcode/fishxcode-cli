@@ -7,14 +7,14 @@
 
 AI 编码工具管理器 — 一键将 claude-code、aider、codex、opencode 等主流工具接入 FishXCode API。
 
-**[📖 文档站](https://cli.fishxcode.com)** · **[🚀 注册账号](https://fishxcode.com/register?aff=9CTW)** · **[🔑 获取 API Key](https://fishxcode.com/console/token)**
+**[📖 文档站](https://cli.fishxcode.com)** · **[📦 npm 包](https://www.npmjs.com/package/fishxcode-cli)** · **[🚀 注册账号](https://fishxcode.com/register?aff=9CTW)** · **[🔑 获取 API Key](https://fishxcode.com/console/token)**
 
 ## 安装
 
 ```bash
 npm i -g fishxcode-cli
 # 或直接运行，无需全局安装
-npx fishxcode-cli@latest fishx setup
+npx fishxcode-cli@latest setup
 ```
 
 ## 快速开始
@@ -58,5 +58,6 @@ export FISHXCODE_API_KEY=sk-xxx   # 替代 fishx login 持久化配置
 ## 相关链接
 
 - **文档站**：<https://cli.fishxcode.com>
+- **npm 包**：<https://www.npmjs.com/package/fishxcode-cli>
 - **API 控制台**：<https://fishxcode.com/console/token>
 - **GitHub**：<https://github.com/fishxcode/fishxcode-cli>

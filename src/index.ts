@@ -39,7 +39,14 @@ program.action(() => {
   program.help();
 });
 
-program.parseAsync(process.argv).catch((error: unknown) => {
+const argv = [...process.argv];
+const redundantCommand = argv[2];
+if (redundantCommand === "fishx" || redundantCommand === "fishxcode") {
+  console.log(pc.yellow(`检测到重复命令前缀 "${redundantCommand}"，已自动忽略。`));
+  argv.splice(2, 1);
+}
+
+program.parseAsync(argv).catch((error: unknown) => {
   const message = error instanceof Error ? error.message : String(error);
   console.error(pc.red(`错误: ${message}`));
   process.exit(1);

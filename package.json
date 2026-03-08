@@ -1,6 +1,6 @@
 {
   "name": "fishxcode-cli",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "AI coding tool manager — one-click integration with FishXCode API for claude-code, aider, codex, opencode and more",
   "type": "module",
   "author": "fishxcode <admin@fishxcode.com>",

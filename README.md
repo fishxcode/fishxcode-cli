@@ -7,14 +7,14 @@
 
 AI coding tool manager — one-click integration with FishXCode API for claude-code, aider, codex, opencode and more.
 
-**[📖 Docs](https://cli.fishxcode.com)** · **[🚀 Register](https://fishxcode.com/register?aff=9CTW)** · **[🔑 Get API Key](https://fishxcode.com/console/token)**
+**[📖 Docs](https://cli.fishxcode.com)** · **[📦 npm Package](https://www.npmjs.com/package/fishxcode-cli)** · **[🚀 Register](https://fishxcode.com/register?aff=9CTW)** · **[🔑 Get API Key](https://fishxcode.com/console/token)**
 
 ## Install
 
 ```bash
 npm i -g fishxcode-cli
 # or run directly without installing
-npx fishxcode-cli@latest fishx setup
+npx fishxcode-cli@latest setup
 ```
 
 ## Quick Start
@@ -58,5 +58,6 @@ export FISHXCODE_API_KEY=sk-xxx   # alternative to fishx login
 ## Links
 
 - **Docs**: <https://cli.fishxcode.com>
+- **npm Package**: <https://www.npmjs.com/package/fishxcode-cli>
 - **API Console**: <https://fishxcode.com/console/token>
 - **GitHub**: <https://github.com/fishxcode/fishxcode-cli>

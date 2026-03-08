@@ -7,14 +7,14 @@
 
 CLI oficial da FishXCode — integração com um clique na API FishXCode para claude-code, aider, codex, opencode e mais.
 
-**[📖 Documentação](https://cli.fishxcode.com/pt/)** · **[🚀 Cadastrar](https://fishxcode.com/register?aff=9CTW)** · **[🔑 Obter API Key](https://fishxcode.com/console/token)**
+**[📖 Documentação](https://cli.fishxcode.com/pt/)** · **[📦 Pacote npm](https://www.npmjs.com/package/fishxcode-cli)** · **[🚀 Cadastrar](https://fishxcode.com/register?aff=9CTW)** · **[🔑 Obter API Key](https://fishxcode.com/console/token)**
 
 ## Instalação
 
 ```bash
 npm i -g fishxcode-cli
 # ou executar diretamente sem instalar
-npx fishxcode-cli@latest fishx setup
+npx fishxcode-cli@latest setup
 ```
 
 ## Início rápido
@@ -58,5 +58,6 @@ export FISHXCODE_API_KEY=sk-xxx   # alternativa ao fishx login
 ## Links
 
 - **Documentação**: <https://cli.fishxcode.com/pt/>
+- **Pacote npm**: <https://www.npmjs.com/package/fishxcode-cli>
 - **Console API**: <https://fishxcode.com/console/token>
 - **GitHub**: <https://github.com/fishxcode/fishxcode-cli>

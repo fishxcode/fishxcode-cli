@@ -2,6 +2,8 @@
 
 ## 安装
 
+📦 npm 包：<https://www.npmjs.com/package/fishxcode-cli>
+
 ```bash
 npm i -g fishxcode-cli
 ```
@@ -9,7 +11,7 @@ npm i -g fishxcode-cli
 或直接运行：
 
 ```bash
-npx fishxcode-cli@latest fishx setup
+npx fishxcode-cli@latest setup
 ```
 
 ## 初始化流程

@@ -15,6 +15,9 @@ hero:
     - theme: alt
       text: Commands
       link: /en/commands
+    - theme: alt
+      text: npm Package
+      link: https://www.npmjs.com/package/fishxcode-cli
 
 features:
   - icon: ⚡
