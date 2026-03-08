@@ -33,33 +33,28 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: pnpm/action-setup@v4
+      - uses: oven-sh/setup-bun@v2
         with:
-          version: 9
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: pnpm
+          bun-version: latest
 
       - uses: actions/cache@v4
         with:
-          path: .vitepress/cache
-          key: vitepress-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-${{ hashFiles('**/*.md', '.vitepress/config.mts') }}
+          path: docs/.vitepress/cache
+          key: vitepress-${{ runner.os }}-${{ hashFiles('bun.lock') }}-${{ hashFiles('docs/**/*.md', 'docs/.vitepress/config.mts') }}
           restore-keys: |
-            vitepress-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-
+            vitepress-${{ runner.os }}-${{ hashFiles('bun.lock') }}-
             vitepress-${{ runner.os }}-
 
-      - run: pnpm install --frozen-lockfile
+      - run: bun install --frozen-lockfile
 
       - name: Build (GitHub Pages)
-        run: pnpm build
+        run: bun run docs:build
         env:
           VITEPRESS_BASE: ${{ vars.VITEPRESS_BASE || format('/{0}/', github.event.repository.name) }}
 
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: .vitepress/dist
+          path: docs/.vitepress/dist
 
   # ──────────────────────────────────────────────────────────────────────────
   # 2. 部署到 GitHub Pages
@@ -78,7 +73,7 @@ jobs:
   # 3. 构建并推送 Docker 镜像
   #
   # Docker 始终以 VITEPRESS_BASE=/ 构建，因为 nginx 从根路径服务。
-  # 借助 pnpm + VitePress + Docker 层三重缓存，二次构建极快。
+  # 借助 bun + VitePress + Docker 层三重缓存，二次构建极快。
   # ──────────────────────────────────────────────────────────────────────────
   docker:
     runs-on: ubuntu-latest
@@ -90,28 +85,23 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: pnpm/action-setup@v4
+      - uses: oven-sh/setup-bun@v2
         with:
-          version: 9
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: pnpm
+          bun-version: latest
 
       # 复用与 build-pages 相同的 VitePress 缓存 key
       - uses: actions/cache@v4
         with:
-          path: .vitepress/cache
-          key: vitepress-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-${{ hashFiles('**/*.md', '.vitepress/config.mts') }}
+          path: docs/.vitepress/cache
+          key: vitepress-${{ runner.os }}-${{ hashFiles('bun.lock') }}-${{ hashFiles('docs/**/*.md', 'docs/.vitepress/config.mts') }}
           restore-keys: |
-            vitepress-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-
+            vitepress-${{ runner.os }}-${{ hashFiles('bun.lock') }}-
             vitepress-${{ runner.os }}-
 
-      - run: pnpm install --frozen-lockfile
+      - run: bun install --frozen-lockfile
 
       - name: Build (Docker, base=/)
-        run: pnpm build
+        run: bun run docs:build
         env:
           VITEPRESS_BASE: /
 
